@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,14 +13,15 @@ namespace Code
         private Sprite _bundleImage;
         private float _price;
         private float _discount;
-        private List<ItemModel> _items;
+        private List<ItemStackModel> _items;
 
         public ItemBundleModel(ItemBundleView view)
         {
             _view = view;
         }
         
-        public void Initialize(string title, string description, Sprite bundleImage, float price, float discount, List<ItemModel> items)
+        public void Initialize(string title, string description, List<ItemStackModel> items, Sprite bundleImage,
+            float price, float discount, Action onPurchase)
         {
             _title = title;
             _description = description;
@@ -28,7 +30,7 @@ namespace Code
             _discount = discount;
             _items = items;
             
-            _view.DisplayBundle(_title, _description, _bundleImage, _price, _discount, CalculatePriceWithDiscount(), _items);
+            _view.DisplayBundle(_title, _description, _items, _bundleImage, _price, _discount, CalculatePriceWithDiscount(), onPurchase);
         }
 
         private float CalculatePriceWithDiscount() => 

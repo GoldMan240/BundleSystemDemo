@@ -1186,11 +1186,12 @@ MonoBehaviour:
   - {fileID: 3181428522005599734}
   - {fileID: 3181428522008348149}
   _bundleImage: {fileID: 6747932707881328273}
+  _purchaseButton: {fileID: 6747932708609634217}
   _finalPrice: {fileID: 6747932707759769047}
   _defaultPrice: {fileID: 6747932708528260212}
   _discountContainer: {fileID: 6747932707417285075}
   _discount: {fileID: 6747932708092891332}
-  _itemIconsById: {fileID: 11400000, guid: f7994bf1f86e1cb41a0ec0a9009fabd6, type: 2}
+  _itemIconsByIdConfig: {fileID: 11400000, guid: f7994bf1f86e1cb41a0ec0a9009fabd6, type: 2}
 --- !u!1 &6747932708773090042
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +15,10 @@ namespace Code
             _model = model;
         }
         
-        public void ShowBundle(string title, string description, Sprite bundleImage, float price, float discount, List<ItemModel> items)
+        public void ShowBundle(string title, string description, List<ItemStackModel> items, Sprite bundleImage,
+            float price, float discount, Action onPurchase)
         {
-            _model.Initialize(title, description, bundleImage, price, discount, items);
+            _model.Initialize(title, description, items, bundleImage, price, discount, onPurchase);
         }
     }
 }

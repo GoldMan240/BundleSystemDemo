@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Code
 {
-    [CreateAssetMenu(menuName = "Create ItemIconsById", fileName = "ItemIconsById")]
-    public class ItemIconsById : ScriptableObject
+    [CreateAssetMenu(menuName = "Create ItemIconsById config", fileName = "ItemIconsById")]
+    public class ItemIconsByIdConfig : ScriptableObject
     {
         [SerializeField] private ItemIconById[] _itemIcons;
 

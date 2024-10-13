@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Code
 {
-    public class ItemView : MonoBehaviour
+    public class ItemStackView : MonoBehaviour
     {
         [SerializeField] private Image _icon;
         [SerializeField] private TextMeshProUGUI _amount;

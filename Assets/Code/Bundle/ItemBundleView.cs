@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Code
@@ -11,17 +13,27 @@ namespace Code
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private TextMeshProUGUI _description;
         [SerializeField] private Transform _itemsContainer;
-        [SerializeField] private List<ItemView> _itemViews;
+        [SerializeField] private List<ItemStackView> _itemViews;
         [SerializeField] private Image _bundleImage;
         [Header("Button")]
+        [SerializeField] private Button _purchaseButton;
         [SerializeField] private TextMeshProUGUI _finalPrice;
         [SerializeField] private TextMeshProUGUI _defaultPrice;
         [SerializeField] private Transform _discountContainer;
         [SerializeField] private TextMeshProUGUI _discount;
+        [FormerlySerializedAs("_itemIconsById")]
         [Header("Icons")]
-        [SerializeField] private ItemIconsById _itemIconsById;
-        
-        public void DisplayBundle(string title, string description, Sprite bundleImage, float price, float discount, float priceWithDiscount, List<ItemModel> items)
+        [SerializeField] private ItemIconsByIdConfig _itemIconsByIdConfig;
+
+        private Action _onPurchase;
+
+        private void OnDestroy()
+        {
+            _purchaseButton.onClick.RemoveListener(OnPurchase);
+        }
+
+        public void DisplayBundle(string title, string description, List<ItemStackModel> items, Sprite bundleImage,
+            float price, float discount, float priceWithDiscount, Action onPurchase)
         {
             _title.text = title;
             _description.text = description;
@@ -29,9 +41,12 @@ namespace Code
             
             DisplayItems(items);
             DisplayPrice(price, discount, priceWithDiscount);
+            
+            _onPurchase = onPurchase;
+            _purchaseButton.onClick.AddListener(OnPurchase);
         }
 
-        private void DisplayItems(List<ItemModel> items)
+        private void DisplayItems(List<ItemStackModel> items)
         {
             if (items.Count > _itemViews.Count)
             {
@@ -41,10 +56,10 @@ namespace Code
             
             for (int i = 0; i < items.Count; i++)
             {
-                ItemModel item = items[i];
-                ItemView itemView = _itemViews[i];
+                ItemStackModel itemStack = items[i];
+                ItemStackView itemStackView = _itemViews[i];
                 
-                itemView.DisplayItem(_itemIconsById.GetIconById(item.Id), item.Amount);
+                itemStackView.DisplayItem(_itemIconsByIdConfig.GetIconById(itemStack.ItemModel.Id), itemStack.Amount);
             }
             
             for (int i = items.Count; i < _itemViews.Count; i++) 
@@ -61,6 +76,11 @@ namespace Code
             bool isDiscount = discount > 0;
             _defaultPrice.gameObject.SetActive(isDiscount);
             _discountContainer.gameObject.SetActive(isDiscount);
+        }
+
+        private void OnPurchase()
+        {
+            _onPurchase?.Invoke();
         }
     }
 }
