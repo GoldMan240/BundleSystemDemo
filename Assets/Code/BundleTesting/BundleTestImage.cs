@@ -26,7 +26,7 @@ namespace Code.BundleTesting
         }
 
         public Sprite GetChosenSprite() =>
-            _image ?? throw new InvalidOperationException("Sprite is not chosen");
+            _image;
 
         private void OpenChooseItemWindow()
         {
