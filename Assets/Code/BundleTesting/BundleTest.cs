@@ -36,13 +36,13 @@ namespace Code.BundleTesting
             ItemBundleModel model = new ItemBundleModel(view);
             ItemBundleController controller = new ItemBundleController(view, model);
 
-            float discount = Convert.ToSingle(_discountInput.text) / 100;
+            float discount = ConvertService.ToFloat(_discountInput.text) / 100;
             controller.ShowBundle(
                 _titleInput.text,
                 _descriptionInput.text,
                 _itemsContainer.GetChosenItems().ToList(),
                 _bundleImage.GetChosenSprite(),
-                Convert.ToSingle(_priceInput.text),
+                ConvertService.ToFloat(_priceInput.text),
                 discount,
                 OnPurchase);
         }

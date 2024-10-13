@@ -33,7 +33,7 @@ namespace Code.BundleTesting
 
         public ItemStackModel GetItemStackModel()
         {
-            int amount = Convert.ToInt32(_amountInput.text);
+            int amount = ConvertService.ToInt(_amountInput.text);
             return new ItemStackModel(_itemModel, amount);
         }
 
